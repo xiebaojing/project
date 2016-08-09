@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Jquery练习</title>
+	<style>
+		*{
+			margin: 0;
+			padding:0;
+		}
+		a{
+			text-decoration: none;
+			display: block;
+			height: 100px;
+			width: 100px;
+			background: #000000;
+			color: #ffffff;
+			margin-bottom: 2px;
+			text-align: center;
+			line-height: 100px;
+			/*实现鼠标放上背景渐变效果transition*/
+			transition:background 0.6s;
+			-moz-transition:background 0.6s; /* Firefox 4 */
+			-webkit-transition:background 0.6s; /* Safari and Chrome */
+			-o-transition:background 0.6s; /* Opera */
+		}
+		a:hover{
+			background: #ffffff;
+			color: #000000;
+		}
+		.ted{
+			position: fixed;
+			top:150px;
+		}
+		.container > li{
+			display: block;
+			width: 80px;
+			height: 80px;
+			background: #123342;
+			float: left;
+			margin-left: 5px;
+			/*实现透明效果*/
+			opacity: 0.4;                    /* Firefox, Safari(WebKit), Opera */
+			-ms-filter: "alpha(opacity=40)"; /* IE 8 */
+			filter: alpha(opacity=40);       /* IE 4-7 */
+		}
+
+		.announcement{
+			width: 470px;
+			height: 470px;
+			background: #000000;
+			position: fixed;
+			top:155px;
+			left: 210px;
+			display: none;
+		}
+
+		.announcement > .close{
+			direction: block;
+			width: 50px;
+			height: 20px;
+			line-height:20px;
+			text-align: center;
+			background: #000000;
+			color: #ffffff; 
+			position: absolute;
+			top: 1px;
+			right: 0px;
+		}
+		.announcement > .close:hover{
+			cursor: pointer;
+		}
+
+/*		CSS旋转的效果
+		.container > .block1{
+			-moz-transform:rotate(60deg); 
+			-webkit-transform:rotate(60deg); 
+			-o-transform:rotate(60deg); 
+			transform:rotate(60deg); 
+			filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1); 
+			position: fixed;
+			top:50px;
+			left: 60px;
+		}
+*/
+
+	</style>
+	<script type="text/javascript" src="jquery.js"></script>
+	<script src="jquery.color.js"></script>
+	<script src="jquery.rotate.min.js"></script>
+	<script>
+		$(function(){
+			for(var i=1;i<=16;i++ ){
+				var z = parseInt(50*Math.random());
+				var zt = parseInt(150*Math.random());
+				var zl = parseInt(1000*Math.random());
+				$('.container > .block'+i).css({
+					position: "fixed",
+					top:zt+"px",
+					left:zl+"px",
+				});
+			}
+
+			$('.about').click(function(){
+				var z = 200;
+				var x = 200;
+				var c = 200;
+				var v = 200;
+				for(var i=1;i<=16;i++ ){
+					if(i < 5){
+						$('.container > .block'+i).animate({
+							position: "fixed",
+							top:"150px",
+							left:z+"px",
+							height:"120px",
+							width:"120px",
+							backgroundColor:"#000000",
+							opacity:"1"
+						},900);	
+						z = z + 120;
+					}
+
+					if( i > 4 && i < 9 ){
+						$('.container > .block'+i).animate({
+							position: "fixed",
+							top:"270px",
+							left:x+"px",	
+							height:"120px",
+							width:"120px",
+							backgroundColor:"#000000",
+							opacity:"1"
+						},900);	
+						x = x + 120;
+					}
+
+					if( i > 8 && i <13 ){
+						$('.container > .block'+i).animate({
+							position: "fixed",
+							top:"390px",
+							left:c+"px",
+							height:"120px",
+							width:"120px",
+							backgroundColor:"#000000",
+							opacity:"1"
+						},900);	
+						c = c + 120;						
+					}
+
+					if( i > 12 ){
+						$('.container > .block'+i).animate({
+							position: "fixed",
+							top:"510px",
+							left:v+"px",
+							height:"120px",
+							width:"120px",
+							backgroundColor:"#000000",
+							opacity:"1"
+						},900);	
+						v = v + 120;
+						/*延迟显示*/
+						setTimeout(function(){
+							$('.announcement').show();
+						},950);						
+					}
+				}
+			});
+
+			$('.announcement > .close').click(function(){
+				$('.announcement').hide();
+				for(var i=1;i<=16;i++ ){
+					/*jquery实现元素的透明效果*/
+					$('.container > .block'+i).css({opacity:"0.4"});
+					var hzt = parseInt(150*Math.random());
+					var hzl = parseInt(1000*Math.random());
+					$('.container > .block'+i).animate({
+						position: "fixed",
+						top:hzt+"px",
+						left:hzl+"px",
+						backgroundColor:"#123342",
+						height:"80px",
+						width:"80px"
+					},900);
+
+				}
+			});
+
+		});
+
+	</script>
+</head>
+<body>
+	<ul class="container">
+		<li class="block1"></li>
+		<li class="block2"></li>
+		<li class="block3"></li>
+		<li class="block4"></li>
+		<li class="block5"></li>
+		<li class="block6"></li>
+		<li class="block7"></li>
+		<li class="block8"></li>
+		<li class="block9"></li>
+		<li class="block10"></li>
+		<li class="block11"></li>
+		<li class="block12"></li>
+		<li class="block13"></li>
+		<li class="block14"></li>
+		<li class="block15"></li>
+		<li class="block16"></li>
+	</ul>
+	<div class="ted">
+		<a  class="about">ABOUT</a>
+		<a  class="work">WORK</a>
+		<a  class="media">MEDIA</a>
+		<a  class="contact">CONTACT</a>
+	</div>
+	<div class="announcement">
+		<span class="close">X</span>
+	</div>
+</body>
+
+</html>
